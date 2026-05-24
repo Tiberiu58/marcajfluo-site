@@ -97,8 +97,6 @@ em {
   width: auto;
   display: block;
   transition: opacity 0.2s;
-  /* Logo are fundal alb opac — folosim screen blend ca să-l facem invizibil pe dark mode */
-  mix-blend-mode: screen;
 }
 .nav-logo:hover .nav-logo-img { opacity: 0.85; }
 
@@ -121,10 +119,10 @@ em {
   bottom: 0; left: 0;
   width: 0;
   height: 2px;
-  background: var(--surface-dark);
+  background: var(--accent);          /* subliniere verde-turcoaz (era întunecată) */
   transition: width 0.3s ease;
 }
-.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover { color: var(--accent); }
 .nav-links a:hover::after { width: 100%; }
 
 .nav-cta {
@@ -1731,7 +1729,6 @@ a.ci-value:hover { color: var(--accent-dark); }
   height: 48px;
   width: auto;
   display: block;
-  mix-blend-mode: screen;
 }
 .footer-logo:hover { opacity: 0.85; }
 .footer-tag {
