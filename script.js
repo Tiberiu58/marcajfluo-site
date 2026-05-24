@@ -98,7 +98,7 @@ gsap.to('.road-line::after', {
 });
 document.querySelectorAll('.road-line').forEach((line, i) => {
   const shine = document.createElement('span');
-  shine.style.cssText = `position:absolute;inset:0;background:linear-gradient(90deg,transparent,#d6ff2f 30%,#d6ff2f 70%,transparent);transform:translateX(-150%);`;
+  shine.style.cssText = `position:absolute;inset:0;background:linear-gradient(90deg,transparent,#62e3ab 30%,#62e3ab 70%,transparent);transform:translateX(-150%);`;
   line.appendChild(shine);
   gsap.to(shine, {
     x: '150%',

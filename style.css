@@ -30,9 +30,9 @@
      - În dark mode e ușor diferită de --bg ca să se distingă */
   --surface-dark: #0a0908;
 
-  /* Culori care rămân identice */
-  --accent: #d6ff2f;
-  --accent-dark: #b8e019;
+  /* Accent (verde-turcoaz din logo) */
+  --accent: #62e3ab;
+  --accent-dark: #4cc890;
   --road: #0a0908;
   --paint: #ffe44d;
   --paint-2: #ffffff;
@@ -96,9 +96,9 @@ em {
   height: 38px;
   width: auto;
   display: block;
-  transition: opacity 0.2s, filter 0.2s;
-  /* Inversăm textul închis ca să se vadă pe dark mode */
-  filter: invert(1) hue-rotate(180deg);
+  transition: opacity 0.2s;
+  /* Logo are fundal alb opac — folosim screen blend ca să-l facem invizibil pe dark mode */
+  mix-blend-mode: screen;
 }
 .nav-logo:hover .nav-logo-img { opacity: 0.85; }
 
@@ -329,6 +329,7 @@ body.menu-open { overflow: hidden; }
   line-height: 1.02;
   letter-spacing: -0.025em;
   margin-bottom: 28px;
+  color: var(--accent);            /* tot titlul în verde-turcoaz */
 }
 .hero-title .line {
   display: block;
@@ -341,19 +342,9 @@ body.menu-open { overflow: hidden; }
 .hero-title em {
   position: relative;
   display: inline-block;
-  color: var(--ink);
+  color: var(--accent);            /* păstrăm verdele și pe em */
   font-style: italic;
-}
-.hero-title em::after {
-  content: '';
-  position: absolute;
-  left: -4px;
-  right: -4px;
-  bottom: 4px;
-  height: 18px;
-  background: var(--accent);
-  z-index: -1;
-  transform: skewX(-6deg);
+  /* eliminat ribbon-ul subliniat sub em */
 }
 
 .hero-sub {
@@ -1617,9 +1608,12 @@ blockquote footer {
   right: -2px;
   bottom: 4px;
   height: 16px;
-  background: var(--accent);
+  background: var(--surface-dark);   /* ribbon întunecat (era accent verde) */
   z-index: -1;
   transform: skewX(-6deg);
+}
+.contact-title em {
+  color: var(--accent);
 }
 .contact-lede {
   font-size: 18px;
@@ -1737,7 +1731,7 @@ a.ci-value:hover { color: var(--accent-dark); }
   height: 48px;
   width: auto;
   display: block;
-  filter: invert(1) hue-rotate(180deg);
+  mix-blend-mode: screen;
 }
 .footer-logo:hover { opacity: 0.85; }
 .footer-tag {
