@@ -5,18 +5,36 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ============================================
+   PALETA ORIGINALĂ (light mode) — pentru revenire:
+   --bg: #faf8f3;
+   --bg-2: #f1ede4;
+   --ink: #131210;
+   --ink-2: #44423d;
+   --rule: #d8d3c7;
+   --line: #1a1815;
+   ============================================ */
+
 :root {
-  --bg: #faf8f3;          /* warm off-white, "paper" */
-  --bg-2: #f1ede4;        /* warmer card surface */
-  --ink: #131210;         /* near-black */
-  --ink-2: #44423d;
-  --muted: #88857d;
-  --line: #1a1815;
-  --rule: #d8d3c7;        /* hairlines */
-  --accent: #d6ff2f;      /* fluorescent yellow-green */
+  /* DARK MODE — fundal gri-închis ca în footer */
+  --bg: #131210;          /* fundal principal (era #faf8f3 alb) */
+  --bg-2: #1d1c19;        /* carduri & surfaces (era #f1ede4) */
+  --ink: #faf8f3;         /* TEXT principal (acum deschis — era #131210) */
+  --ink-2: #c9c6bd;       /* text secundar (era #44423d) */
+  --muted: #88857d;       /* text muted (păstrat) */
+  --rule: #2a2825;        /* hairlines (era #d8d3c7) */
+  --line: #2a2825;        /* borduri (era #1a1815) */
+
+  /* Culoare specifică suprafețelor "very dark" (footer, butoane CTA principale)
+     - În light mode era egală cu --ink (#131210)
+     - În dark mode e ușor diferită de --bg ca să se distingă */
+  --surface-dark: #0a0908;
+
+  /* Culori care rămân identice */
+  --accent: #d6ff2f;
   --accent-dark: #b8e019;
-  --road: #1a1815;        /* asphalt */
-  --paint: #ffe44d;       /* paint yellow */
+  --road: #0a0908;
+  --paint: #ffe44d;
   --paint-2: #ffffff;
 }
 
@@ -42,7 +60,7 @@ em {
   font-weight: 500;
 }
 
-::selection { background: var(--ink); color: var(--accent); }
+::selection { background: var(--surface-dark); color: var(--accent); }
 
 /* ========== SCROLL PROGRESS ========== */
 .scroll-progress {
@@ -50,7 +68,7 @@ em {
   top: 0; left: 0;
   width: 0%;
   height: 2px;
-  background: var(--ink);
+  background: var(--surface-dark);
   z-index: 10000;
 }
 
@@ -64,7 +82,7 @@ em {
   gap: 40px;
   padding: 20px 40px;
   z-index: 100;
-  background: rgba(250, 248, 243, 0.85);
+  background: rgba(19, 18, 16, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--rule);
@@ -78,7 +96,9 @@ em {
   height: 38px;
   width: auto;
   display: block;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, filter 0.2s;
+  /* Inversăm textul închis ca să se vadă pe dark mode */
+  filter: invert(1) hue-rotate(180deg);
 }
 .nav-logo:hover .nav-logo-img { opacity: 0.85; }
 
@@ -101,7 +121,7 @@ em {
   bottom: 0; left: 0;
   width: 0;
   height: 2px;
-  background: var(--ink);
+  background: var(--surface-dark);
   transition: width 0.3s ease;
 }
 .nav-links a:hover { color: var(--ink); }
@@ -111,12 +131,12 @@ em {
   font-size: 14px;
   font-weight: 500;
   padding: 10px 18px;
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--surface-dark);
+  color: var(--accent);     /* text verde */
   border-radius: 100px;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
-.nav-cta:hover { background: var(--accent-dark); color: var(--ink); }
+.nav-cta:hover { background: var(--accent); color: var(--surface-dark); }
 
 /* Hamburger toggle (hidden on desktop) */
 .nav-toggle {
@@ -145,8 +165,8 @@ em {
   transition: transform 0.3s ease, opacity 0.2s;
   transform-origin: center;
 }
-.nav-toggle[aria-expanded="true"] { background: var(--ink); border-color: var(--ink); }
-.nav-toggle[aria-expanded="true"] span { background: var(--bg); }
+.nav-toggle[aria-expanded="true"] { background: var(--surface-dark); border-color: var(--surface-dark); }
+.nav-toggle[aria-expanded="true"] span { background: var(--ink); }
 .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -202,8 +222,8 @@ em {
   display: inline-flex !important;
   align-items: center;
   padding: 16px 28px !important;
-  background: var(--ink);
-  color: var(--bg) !important;
+  background: var(--surface-dark);
+  color: var(--accent) !important;   /* text verde */
   border-radius: 100px;
   font-family: 'Inter', sans-serif !important;
   font-weight: 500 !important;
@@ -251,7 +271,7 @@ body.menu-open { overflow: hidden; }
   flex: 1;
   height: 4px;
   margin: 3px 8px;
-  background: var(--ink);
+  background: var(--surface-dark);
   position: relative;
   overflow: hidden;
 }
@@ -282,8 +302,8 @@ body.menu-open { overflow: hidden; }
   align-items: center;
   gap: 10px;
   padding: 8px 14px;
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--surface-dark);
+  color: var(--ink);
   border-radius: 100px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
@@ -356,8 +376,8 @@ body.menu-open { overflow: hidden; }
   align-items: center;
   gap: 10px;
   padding: 16px 24px;
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--surface-dark);
+  color: var(--accent);      /* text VERDE (era alb) */
   border-radius: 100px;
   font-weight: 500;
   font-size: 15px;
@@ -367,7 +387,7 @@ body.menu-open { overflow: hidden; }
 }
 .btn-primary:hover {
   background: var(--accent);
-  color: var(--ink);
+  color: var(--surface-dark);   /* hover: text închis pe fundal verde */
   transform: translateY(-2px);
 }
 .btn-primary svg {
@@ -431,8 +451,8 @@ body.menu-open { overflow: hidden; }
 .hero-card {
   width: 100%;
   max-width: 460px;
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--surface-dark);
+  color: var(--ink);
   border-radius: 14px;
   overflow: hidden;
   padding: 16px;
@@ -521,14 +541,14 @@ body.menu-open { overflow: hidden; }
 }
 .meta-val {
   font-size: 13px;
-  color: var(--bg);
+  color: var(--ink);
   line-height: 1.4;
 }
 
 /* ========== VALUE STRIP ========== */
 .value-strip {
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--surface-dark);
+  color: var(--ink);
   padding: 80px 40px;
   position: relative;
 }
@@ -668,7 +688,7 @@ body.menu-open { overflow: hidden; }
   border-radius: 14px;
   overflow: hidden;
   aspect-ratio: 4/5;
-  background: var(--ink);
+  background: var(--surface-dark);
 }
 .real-photo img {
   width: 100%;
@@ -700,13 +720,13 @@ body.menu-open { overflow: hidden; }
 }
 .cap-text {
   font-size: 14px;
-  color: var(--bg);
+  color: var(--ink);
   line-height: 1.45;
 }
 
 /* Legacy paint demo kept for safety */
 .paint-demo {
-  background: var(--ink);
+  background: var(--surface-dark);
   border-radius: 12px;
   padding: 32px;
   height: 480px;
@@ -843,7 +863,7 @@ body.menu-open { overflow: hidden; }
   aspect-ratio: 16/10;
   width: 100%;
   overflow: hidden;
-  background: var(--ink);
+  background: var(--surface-dark);
   position: relative;
 }
 .service-img img {
@@ -912,7 +932,7 @@ body.menu-open { overflow: hidden; }
   transform: translateY(-50%);
   width: 12px;
   height: 2px;
-  background: var(--ink);
+  background: var(--surface-dark);
 }
 
 .card-price {
@@ -971,8 +991,8 @@ body.menu-open { overflow: hidden; }
 .pt-row:last-child { border-bottom: none; }
 .pt-row:not(.pt-header):hover { background: var(--bg); }
 .pt-header {
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--surface-dark);
+  color: var(--ink);
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
   letter-spacing: 0.15em;
@@ -1001,7 +1021,7 @@ body.menu-open { overflow: hidden; }
 }
 .pn-icon {
   width: 32px; height: 32px;
-  background: var(--ink);
+  background: var(--surface-dark);
   color: var(--accent);
   border-radius: 50%;
   display: flex;
@@ -1168,7 +1188,7 @@ body.menu-open { overflow: hidden; }
 /* Apply visual */
 .apply-visual { width: 100%; }
 .apply-road {
-  background: var(--ink);
+  background: var(--surface-dark);
   height: 80px;
   border-radius: 6px;
   position: relative;
@@ -1301,8 +1321,8 @@ body.menu-open { overflow: hidden; }
 }
 .compare-row:last-child { border-bottom: none; }
 .compare-row.header {
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--surface-dark);
+  color: var(--ink);
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
   letter-spacing: 0.15em;
@@ -1359,7 +1379,7 @@ body.menu-open { overflow: hidden; }
 .work-img {
   aspect-ratio: 16/10;
   width: 100%;
-  background: var(--ink);
+  background: var(--surface-dark);
   position: relative;
   overflow: hidden;
 }
@@ -1408,8 +1428,8 @@ body.menu-open { overflow: hidden; }
 /* ========== QUOTE ========== */
 .quote-section {
   padding: 140px 40px;
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--surface-dark);
+  color: var(--ink);
 }
 blockquote {
   max-width: 1100px;
@@ -1538,7 +1558,7 @@ blockquote footer {
 .faq-icon::before, .faq-icon::after {
   content: '';
   position: absolute;
-  background: var(--ink);
+  background: var(--surface-dark);
   transition: background 0.3s;
 }
 .faq-icon::before {
@@ -1692,8 +1712,8 @@ a.ci-value:hover { color: var(--accent-dark); }
 
 /* ========== FOOTER ========== */
 .footer {
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--surface-dark);
+  color: var(--ink);
   padding: 80px 40px 32px;
 }
 .footer-top {
@@ -1717,6 +1737,7 @@ a.ci-value:hover { color: var(--accent-dark); }
   height: 48px;
   width: auto;
   display: block;
+  filter: invert(1) hue-rotate(180deg);
 }
 .footer-logo:hover { opacity: 0.85; }
 .footer-tag {
@@ -1744,7 +1765,7 @@ a.ci-value:hover { color: var(--accent-dark); }
   color: #aba89e;
   transition: color 0.2s;
 }
-.footer-col a:hover { color: var(--bg); }
+.footer-col a:hover { color: var(--ink); }
 
 .footer-bottom {
   max-width: 1400px;
@@ -1794,7 +1815,7 @@ a.ci-value:hover { color: var(--accent-dark); }
   }
   .nav-toggle:hover { border: none; background: transparent; }
   .nav-toggle[aria-expanded="true"] { background: transparent; border: none; }
-  .nav-toggle[aria-expanded="true"] span { background: var(--ink); }
+  .nav-toggle[aria-expanded="true"] span { background: var(--surface-dark); }
 
   .nav-logo-img { height: 34px; }
 
@@ -1951,10 +1972,10 @@ a.ci-value:hover { color: var(--accent-dark); }
   .hero-cta {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
-    margin-bottom: 32px;
+    gap: 18px;            /* spațiu mai mare între butoane (era 10px) */
+    margin-bottom: 36px;
   }
-  .btn-primary, .btn-ghost { justify-content: center; padding: 14px 24px; width: 100%; }
+  .btn-primary, .btn-ghost { justify-content: center; padding: 16px 26px; width: 100%; }
   .hero-trust {
     flex-wrap: wrap;
     justify-content: center;
