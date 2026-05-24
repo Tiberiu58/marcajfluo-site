@@ -5,6 +5,57 @@
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+/* ========== MOBILE DETECTION ========== */
+const isMobile = () => window.matchMedia('(max-width: 980px)').matches;
+
+/* ========== MOBILE MENU ========== */
+const navToggle = document.querySelector('.nav-toggle');
+const mobileMenu = document.querySelector('.mobile-menu');
+const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
+
+if (navToggle && mobileMenu) {
+  const closeMenu = () => {
+    navToggle.setAttribute('aria-expanded', 'false');
+    mobileMenu.classList.remove('open');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('menu-open');
+  };
+  const openMenu = () => {
+    navToggle.setAttribute('aria-expanded', 'true');
+    mobileMenu.classList.add('open');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('menu-open');
+    // Animate links in
+    gsap.fromTo('.mobile-menu-links a',
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.5, stagger: 0.05, ease: 'power3.out', delay: 0.15 }
+    );
+  };
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+    if (isOpen) closeMenu(); else openMenu();
+  });
+
+  mobileMenuLinks.forEach(link => {
+    link.addEventListener('click', () => closeMenu());
+  });
+
+  // Close on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') {
+      closeMenu();
+    }
+  });
+
+  // Close on resize to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 980 && navToggle.getAttribute('aria-expanded') === 'true') {
+      closeMenu();
+    }
+  });
+}
+
 /* ========== SCROLL PROGRESS ========== */
 gsap.to('.scroll-progress', {
   width: '100%',
@@ -275,7 +326,7 @@ const processSlides = document.querySelector('.process-slides');
 const processTrack = document.querySelector('.process-track');
 const processPin = document.querySelector('.process-pin');
 
-if (processSlides && processTrack) {
+if (processSlides && processTrack && !isMobile()) {
   const getScrollDistance = () => {
     return processSlides.scrollWidth - window.innerWidth + 80;
   };
@@ -376,6 +427,58 @@ if (processSlides && processTrack) {
       containerAnimation: processTween,
       start: 'left 65%'
     }
+  });
+} else if (processSlides) {
+  /* Mobile: simple vertical scroll animations for each slide */
+  gsap.utils.toArray('.p-slide').forEach(slide => {
+    gsap.from(slide, {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: slide, start: 'top 85%' }
+    });
+  });
+
+  /* Survey rows */
+  gsap.from('.survey-row', {
+    x: -20, opacity: 0, duration: 0.4, stagger: 0.1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.survey-mockup', start: 'top 85%' }
+  });
+
+  /* Prep stages */
+  ScrollTrigger.create({
+    trigger: '.prep-bar', start: 'top 85%', once: true,
+    onEnter: () => {
+      gsap.utils.toArray('.prep-stage').forEach((stage, i) => {
+        stage.classList.remove('active');
+        gsap.delayedCall(i * 0.2, () => stage.classList.add('active'));
+      });
+    }
+  });
+
+  /* Apply line */
+  gsap.to('.apply-line', {
+    width: '100%', duration: 1.5, ease: 'power2.inOut',
+    scrollTrigger: { trigger: '.apply-road', start: 'top 80%' }
+  });
+  gsap.to('.apply-machine', {
+    left: '100%', duration: 1.5, ease: 'power2.inOut',
+    scrollTrigger: { trigger: '.apply-road', start: 'top 80%' }
+  });
+  gsap.from('.apply-stats > div', {
+    y: 20, opacity: 0, duration: 0.4, stagger: 0.1,
+    scrollTrigger: { trigger: '.apply-stats', start: 'top 85%' }
+  });
+
+  /* QC */
+  gsap.to('.qc-check path', {
+    strokeDashoffset: 0, duration: 0.8, ease: 'power2.out',
+    scrollTrigger: { trigger: '.qc-check', start: 'top 85%' }
+  });
+  gsap.from('.qc-stats > div', {
+    x: 20, opacity: 0, duration: 0.4, stagger: 0.1, ease: 'power3.out',
+    scrollTrigger: { trigger: '.qc-stats', start: 'top 85%' }
   });
 }
 
