@@ -1911,7 +1911,7 @@ a.ci-value:hover { color: var(--accent-dark); }
   .row-label { color: var(--accent-dark); margin-bottom: 4px; font-size: 11px; }
   .col-us, .col-them { font-size: 15px; }
   .col-them::before { content: 'vs. concurenți: '; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-right: 6px; }
-  .col-us::before { content: 'MarcajFluo: '; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent-dark); letter-spacing: 0.1em; text-transform: uppercase; margin-right: 6px; }
+  .col-us::before { content: 'MarcajFosfo: '; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent-dark); letter-spacing: 0.1em; text-transform: uppercase; margin-right: 6px; }
 
   /* Work */
   .work-grid { grid-template-columns: 1fr; gap: 16px; }

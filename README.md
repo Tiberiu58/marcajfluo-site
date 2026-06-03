@@ -1,6 +1,6 @@
-# MarcajFluo
+# MarcajFosfo
 
-Site de prezentare pentru **MarcajFluo SRL** — firmă românească specializată în aplicarea marcajelor rutiere termoplastice fluorescente.
+Site de prezentare pentru **MarcajFosfo SRL** — firmă românească specializată în aplicarea marcajelor rutiere termoplastice fluorescente.
 
 ## Despre
 
@@ -39,10 +39,10 @@ Site-ul este pregătit pentru deploy direct pe Vercel, Netlify sau orice host st
 ├── index.html       # Toate secțiunile site-ului
 ├── style.css        # Stiluri globale + responsive
 ├── script.js        # Animații GSAP + interacțiuni
-├── logo.png         # Logo MarcajFluo
+├── logo.png         # Logo MarcajFosfo
 └── favicon.png      # Favicon
 ```
 
 ## Licență
 
-© 2026 MarcajFluo SRL. Toate drepturile rezervate.
+© 2026 MarcajFosfo SRL. Toate drepturile rezervate.
